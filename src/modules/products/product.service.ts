@@ -35,10 +35,16 @@ const getSearchProduct = async (searchTerm: string) => {
   return result;
 };
 
+// delete a product
+const deleteProductById = async (id: string) => {
+  return await Product.findByIdAndDelete(id);
+};
+
 export const ProductService = {
   createProduct,
   getAllProducts,
   getProductById,
   getSearchProduct,
   updateProductById,
+  deleteProductById,
 };
