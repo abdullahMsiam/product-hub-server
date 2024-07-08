@@ -17,8 +17,17 @@ const getProductById = async (id: string) => {
   return result;
 };
 
+//get product by search
+const getSearchProduct = async (searchTerm: string) => {
+  const result = await Product.find({
+    name: { $regex: searchTerm, $options: "i" },
+  });
+  return result;
+};
+
 export const ProductService = {
   createProduct,
   getAllProducts,
   getProductById,
+  getSearchProduct,
 };

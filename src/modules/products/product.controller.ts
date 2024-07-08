@@ -48,8 +48,30 @@ const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+// get the search product controller
+const getSearchProduct = async (req: Request, res: Response) => {
+  const searchTerm = req.query.searchTerm?.toString() || "";
+
+  try {
+    const result = await ProductService.getSearchProduct(searchTerm);
+    console.log(result);
+    res.json({
+      success: true,
+      message: "Products fetched successfully!",
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching products",
+      error: err,
+    });
+  }
+};
+
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getProductById,
+  getSearchProduct,
 };
