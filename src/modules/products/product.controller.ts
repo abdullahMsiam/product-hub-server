@@ -68,9 +68,42 @@ const getSearchProduct = async (req: Request, res: Response) => {
   }
 };
 
+// update product by id controller:
+const updateProductById = async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  const updateData = req.body;
+
+  try {
+    const result = await ProductService.updateProductById(
+      productId,
+      updateData
+    );
+
+    if (result) {
+      res.json({
+        success: true,
+        message: "Product updated successfully!",
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the product",
+      error: err,
+    });
+  }
+};
+
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getProductById,
   getSearchProduct,
+  updateProductById,
 };

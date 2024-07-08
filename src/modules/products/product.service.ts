@@ -17,6 +17,16 @@ const getProductById = async (id: string) => {
   return result;
 };
 
+// update product info by id
+const updateProductById = async (
+  id: string,
+  updateProduct: Partial<TProduct>
+) => {
+  return await Product.findOneAndReplace({ _id: id }, updateProduct, {
+    new: true,
+  });
+};
+
 //get product by search
 const getSearchProduct = async (searchTerm: string) => {
   const result = await Product.find({
@@ -30,4 +40,5 @@ export const ProductService = {
   getAllProducts,
   getProductById,
   getSearchProduct,
+  updateProductById,
 };
