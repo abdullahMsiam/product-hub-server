@@ -54,7 +54,6 @@ const getSearchProduct = async (req: Request, res: Response) => {
 
   try {
     const result = await ProductService.getSearchProduct(searchTerm);
-    console.log(result);
     res.json({
       success: true,
       message: "Products fetched successfully!",
