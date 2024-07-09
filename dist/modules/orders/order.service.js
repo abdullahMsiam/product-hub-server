@@ -8,24 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("./config"));
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(config_1.default.db_url);
-            app_1.default.listen(config_1.default.port, () => {
-                console.log(`Example app listening on port ${config_1.default.port}`);
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
-}
-main();
+exports.OrderService = void 0;
+const order_model_1 = require("./order.model");
+// post or create a new order
+const createOrder = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield order_model_1.Order.create(payLoad);
+    return result;
+});
+//get all orders
+const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield order_model_1.Order.find();
+    return result;
+});
+//get orders by email:
+const getOrdersByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield order_model_1.Order.find({ email });
+});
+exports.OrderService = {
+    createOrder,
+    getAllOrders,
+    getOrdersByEmail,
+};
