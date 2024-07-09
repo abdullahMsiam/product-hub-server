@@ -4,8 +4,8 @@ import { Product } from "../products/product.model";
 
 const createOrder = async (req: Request, res: Response) => {
   const orderData = req.body;
-  const { productId, quantity } = orderData;
 
+  const { productId, quantity } = orderData;
   // update method
   try {
     const product = await Product.findById(productId);
@@ -41,6 +41,23 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Order not found",
+    });
+  }
+};
+
+// get all orders
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const result = await OrderService.getAllOrders();
+    res.status(200).json({
+      success: true,
+      message: "order fetched successfully!",
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Could not fetch products",
       error: err,
     });
   }
@@ -48,4 +65,5 @@ const createOrder = async (req: Request, res: Response) => {
 
 export const OrderControllers = {
   createOrder,
+  getAllOrders,
 };

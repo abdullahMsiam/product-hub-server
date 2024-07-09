@@ -7,6 +7,13 @@ const createOrder = async (payLoad: TOrder) => {
   return result;
 };
 
+//get all orders
+const getAllOrders = async () => {
+  const result = await Order.find();
+  return result;
+};
+
 export const OrderService = {
   createOrder,
+  getAllOrders,
 };
